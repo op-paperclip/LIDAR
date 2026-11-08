@@ -1,7 +1,4 @@
 
-
-https://github.com/user-attachments/assets/68904655-c3b6-44d2-88d6-ec57bc0f584f
-
 # ESP32 LiDAR Distance Monitor
 
 A compact distance-measuring device built around the **Garmin LIDAR-Lite v3** and an **ESP32-2432S028R Cheap Yellow Display (CYD)**. The measured distance is shown on the CYD as a live, speedometer-style gauge. A built-in Wi-Fi access point also provides a browser-based dashboard for viewing the measurement remotely.
@@ -15,7 +12,6 @@ A compact distance-measuring device built around the **Garmin LIDAR-Lite v3** an
 The video demonstrates the distance gauge and the device in operation.
 
 https://github.com/user-attachments/assets/5e17bf5e-4c94-4fb1-92d4-e01df825957a
-
 
 
 ## Features
