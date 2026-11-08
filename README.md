@@ -11,7 +11,7 @@ A compact distance-measuring device built around the **Garmin LIDAR-Lite v3** an
 
 The video demonstrates the distance gauge and the device in operation.
 
-https://github.com/user-attachments/assets/5e17bf5e-4c94-4fb1-92d4-e01df825957a
+https://github.com/user-attachments/assets/05fea9a9-cdbe-43fe-8ced-85dfae1aa095
 
 
 ## Features
