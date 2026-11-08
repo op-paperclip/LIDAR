@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LIDAR Tacho</title>
+  <script src="/gauge.min.js"></script>
+  <style>
+    body {
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      color: #333;
+      margin-top: 20px;
+      text-transform: none;
+    }
+    canvas {
+      display: block;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>LIDAR Entfernungsmesser</h1>
+  <canvas id="gauge" width="300" height="300"></canvas>
+
+  <script>
+    // --- Initialwert vom ESP32 einsetzen ---
+    const initialValue = parseInt("ENTFERNUNG_PLACEHOLDER");
+
+    // --- Tacho konfigurieren ---
+    const gauge = new RadialGauge({
+        renderTo: 'gauge',
+        width: 300,
+        height: 300,
+        units: "cm",
+        minValue: 0,
+        maxValue: 4000,
+        majorTicks: ["0","500","1000","1500","2000","2500","3000","3500","4000"],
+        minorTicks: 5,
+        strokeTicks: true,
+        highlights: [
+            { from: 0,   to: 500,  color: "rgba(0,255,0,.3)" },
+            { from: 500, to: 1500, color: "rgba(255,255,0,.3)" },
+            { from: 1500,to: 4000, color: "rgba(255,0,0,.3)" }
+        ],
+        colorPlate: "#ffffff",
+        colorMajorTicks: "#000000",
+        colorMinorTicks: "#666666",
+        colorNumbers: "#000000",
+        colorNeedle: "rgba(200, 50, 50, 1)",
+        colorNeedleEnd: "rgba(255, 0, 0, .8)",
+        colorBorderOuter: "#cccccc",
+        colorBorderOuterEnd: "#999999",
+        needleCircleOuter: false,
+        borders: true,
+        animationRule: "linear",
+        animationDuration: 200,
+        valueBox: true,
+        valueTextShadow: false,
+        fontNumbersSize: 18,
+        fontUnitsSize: 18,
+        fontValueSize: 28,
+        value: isNaN(initialValue) ? 0 : initialValue
+    }).draw();
+
+    // --- Wert regelmäßig vom ESP32 abrufen ---
+    async function updateValue() {
+      try {
+        const res = await fetch("/value");
+        const val = await res.text();
+        const num = parseInt(val);
+        if (!isNaN(num)) gauge.value = num;
+      } catch (e) {
+        console.error("Fehler beim Abrufen des Messwerts:", e);
+      }
+    }
+
+    setInterval(updateValue, 200);
+  </script>
+</body>
+</html>
